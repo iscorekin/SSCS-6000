@@ -4,7 +4,9 @@
   "description": "Super speedy cider squeezer is a number formatter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel --presets env src -d ./ --ignore src/index.test.js",
+    "dev": "babel --presets env src -d ./ --watch --ignore src/index.test.js",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -14,6 +16,12 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/iscorekin/SSCS-6000.gitissues"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^20.0.3"
   },
   "homepage": "https://github.com/iscorekin/SSCS-6000.git#readme"
 }
