@@ -10,40 +10,48 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var sscs = {
   toFixed: function toFixed(fix) {
-    this.__value = parseFloat(this.__value.toFixed(fix));
+    if (!this.__hasError) {
+      this.__value = parseFloat(this.__value.toFixed(fix));
+    }
+
     return this;
   },
   toFirstNumberFixed: function toFirstNumberFixed() {
-    var fill = function fill(n) {
-      var zeros = '';
-      for (var i = 0; i < n; i++) {
-        zeros += '0';
-      }
-      return zeros;
-    };
+    if (!this.__hasError) {
+      var fill = function fill(n) {
+        var zeros = '';
+        for (var i = 0; i < n; i++) {
+          zeros += '0';
+        }
+        return zeros;
+      };
 
-    var str = this.__value.toString().split('.')[1] || this.__value.toString().split(',')[1];
+      var str = this.__value.toString().split('.')[1] || this.__value.toString().split(',')[1];
 
-    if (!str) return this;
+      if (!str) return this;
 
-    var firstNumIndex = [].concat(_toConsumableArray(str)).findIndex(function (x) {
-      return parseInt(x) > 0;
-    });
-    var rounded = Math.round([[].concat(_toConsumableArray(str)).slice(firstNumIndex)[0], '.'].concat(_toConsumableArray([].concat(_toConsumableArray(str)).slice(firstNumIndex + 1))).join(''));
-    this.__value = '0.' + fill(firstNumIndex) + rounded;
+      var firstNumIndex = [].concat(_toConsumableArray(str)).findIndex(function (x) {
+        return parseInt(x) > 0;
+      });
+      var rounded = Math.round([[].concat(_toConsumableArray(str)).slice(firstNumIndex)[0], '.'].concat(_toConsumableArray([].concat(_toConsumableArray(str)).slice(firstNumIndex + 1))).join(''));
+      this.__value = '0.' + fill(firstNumIndex) + rounded;
+    }
 
     return this;
   },
   round: function round() {
-    this.__value = Math.round(this.__value);
+    if (!this.__hasError) this.__value = Math.round(this.__value);
+
     return this;
   },
   separate: function separate() {
-    this.__value = this.__value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    if (!this.__hasError) this.__value = this.__value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
     return this;
   },
   replaceDots: function replaceDots() {
-    this.__value = this.__value.toString().replace('.', ',');
+    if (!this.__hasError) this.__value = this.__value.toString().replace('.', ',');
+
     return this;
   },
   valueOf: function valueOf() {
@@ -52,8 +60,11 @@ var sscs = {
 };
 
 exports.default = function (value, config) {
+  var hasError = !value || isNaN(value);
+
   return _extends({
-    __value: value && !isNaN(value) ? value : config.error || '0',
+    __hasError: hasError,
+    __value: !hasError ? value : config.error || '-',
     __config: config
   }, sscs);
 };
