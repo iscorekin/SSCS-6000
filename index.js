@@ -55,16 +55,20 @@ var sscs = {
     return this;
   },
   valueOf: function valueOf() {
-    return this.__value;
+    return !this.__hasError ? this.__value : this.__config.error;
   }
 };
 
 exports.default = function (value, config) {
-  var hasError = !value || isNaN(value);
+  var hasError = !value || isNaN(value) || value === Number.MIN_VALUE;
+
+  var conf = _extends({
+    error: '-'
+  }, config);
 
   return _extends({
     __hasError: hasError,
-    __value: !hasError ? value : config.error || '-',
+    __value: !hasError ? value : conf.error,
     __config: config
   }, sscs);
 };

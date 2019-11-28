@@ -54,13 +54,13 @@ const sscs = {
 }
 
 export default (value, config) => {
-  const hasError = !value || isNaN(value);
-  
+  const hasError = !value || isNaN(value) || value === Number.MIN_VALUE;
+
   const conf = {
     error: '-',
     ...config,
   };
-
+  
   return {
     __hasError: hasError,
     __value: !hasError ? value : conf.error,
