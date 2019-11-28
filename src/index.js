@@ -49,16 +49,21 @@ const sscs = {
   },
 
   valueOf() { 
-    return this.__value;
+    return !this.__hasError ? this.__value : this.__config.error;
   },
 }
 
 export default (value, config) => {
   const hasError = !value || isNaN(value);
+  
+  const conf = {
+    error: '-',
+    ...config,
+  };
 
   return {
     __hasError: hasError,
-    __value: !hasError ? value : config.error || '-',
+    __value: !hasError ? value : conf.error,
     __config: config,
     ...sscs
   }
