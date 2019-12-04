@@ -20,7 +20,7 @@ const sscs = {
       if (!str) return this;
 
       const firstNumIndex = [...str].findIndex(x => parseInt(x) > 0);
-      this.__value = `0.${fill(firstNumIndex)}${[...str][firstNumIndex]}`;
+      this.__value = `${this.__value.toString().split('.')[0] || this.__value.toString().split(',')[0]}.${fill(firstNumIndex)}${[...str][firstNumIndex]}`;
     }
 
     return this;
@@ -40,9 +40,9 @@ const sscs = {
     return this;
   },
 
-  replaceDots() {
+  replaceDots(symbol = ',') {
     if(!this.__hasError)
-      this.__value = this.__value.toString().replace('.', ',');
+      this.__value = this.__value.toString().replace('.', symbol);
 
     return this;
   },
@@ -59,8 +59,8 @@ const sscs = {
   },
 }
 
-export default (value, config) => {
-  const hasError = config.checkError(value) || (!value || isNaN(value) || value === Number.MIN_VALUE);
+export default (value, config = {}) => {
+  const hasError = config.checkError ? config.checkError(value) : (!value || isNaN(value) || value === Number.MIN_VALUE);
 
   const conf = {
     error: '-',
@@ -69,8 +69,8 @@ export default (value, config) => {
   
   return {
     __hasError: hasError,
-    __value: !hasError ? value : conf.error,
-    __config: config,
+    __value: value,
+    __config: conf,
     ...sscs
   }
 };
