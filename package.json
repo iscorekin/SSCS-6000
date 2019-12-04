@@ -1,6 +1,6 @@
 {
   "name": "sscs-6000",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Super speedy cider squeezer is a number formatter",
   "main": "index.js",
   "scripts": {
