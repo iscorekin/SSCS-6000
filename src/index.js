@@ -47,13 +47,20 @@ const sscs = {
     return this;
   },
 
+  custom(callback) {
+    if (!this.__hasError)
+      this.__value = callback(this.__value);
+    
+    return this;
+  },
+
   valueOf() { 
     return !this.__hasError ? this.__value : this.__config.error;
   },
 }
 
 export default (value, config) => {
-  const hasError = !value || isNaN(value) || value === Number.MIN_VALUE;
+  const hasError = config.checkError(value) || (!value || isNaN(value) || value === Number.MIN_VALUE);
 
   const conf = {
     error: '-',

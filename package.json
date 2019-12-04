@@ -2,6 +2,7 @@
   "name": "sscs-6000",
   "version": "0.0.9",
   "description": "Super speedy cider squeezer is a number formatter",
+  "keywords": ["number", "format", "formatter", "number formatter", "sscs"],
   "main": "index.js",
   "scripts": {
     "build": "npx babel --presets env src -d ./ --ignore src/index.test.js",
