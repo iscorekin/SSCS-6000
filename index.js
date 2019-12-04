@@ -33,7 +33,7 @@ var sscs = {
       var firstNumIndex = [].concat(_toConsumableArray(str)).findIndex(function (x) {
         return parseInt(x) > 0;
       });
-      this.__value = '0.' + fill(firstNumIndex) + [].concat(_toConsumableArray(str))[firstNumIndex];
+      this.__value = (this.__value.toString().split('.')[0] || this.__value.toString().split(',')[0]) + '.' + fill(firstNumIndex) + [].concat(_toConsumableArray(str))[firstNumIndex];
     }
 
     return this;
@@ -49,7 +49,14 @@ var sscs = {
     return this;
   },
   replaceDots: function replaceDots() {
-    if (!this.__hasError) this.__value = this.__value.toString().replace('.', ',');
+    var symbol = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ',';
+
+    if (!this.__hasError) this.__value = this.__value.toString().replace('.', symbol);
+
+    return this;
+  },
+  custom: function custom(callback) {
+    if (!this.__hasError) this.__value = callback(this.__value);
 
     return this;
   },
@@ -58,8 +65,10 @@ var sscs = {
   }
 };
 
-exports.default = function (value, config) {
-  var hasError = !value || isNaN(value) || value === Number.MIN_VALUE;
+exports.default = function (value) {
+  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var hasError = config.checkError ? config.checkError(value) : !value || isNaN(value) || value === Number.MIN_VALUE;
 
   var conf = _extends({
     error: '-'
@@ -67,7 +76,7 @@ exports.default = function (value, config) {
 
   return _extends({
     __hasError: hasError,
-    __value: !hasError ? value : conf.error,
-    __config: config
+    __value: value,
+    __config: conf
   }, sscs);
 };
