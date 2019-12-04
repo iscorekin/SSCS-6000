@@ -20,8 +20,7 @@ const sscs = {
       if (!str) return this;
 
       const firstNumIndex = [...str].findIndex(x => parseInt(x) > 0);
-      const rounded = [...str].slice(firstNumIndex)[0];
-      this.__value = `0.${fill(firstNumIndex)}${rounded}`;
+      this.__value = `0.${fill(firstNumIndex)}${[...str][firstNumIndex]}`;
     }
 
     return this;

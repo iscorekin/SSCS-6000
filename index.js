@@ -33,8 +33,7 @@ var sscs = {
       var firstNumIndex = [].concat(_toConsumableArray(str)).findIndex(function (x) {
         return parseInt(x) > 0;
       });
-      var rounded = [].concat(_toConsumableArray(str)).slice(firstNumIndex)[0];
-      this.__value = '0.' + fill(firstNumIndex) + rounded;
+      this.__value = '0.' + fill(firstNumIndex) + [].concat(_toConsumableArray(str))[firstNumIndex];
     }
 
     return this;
