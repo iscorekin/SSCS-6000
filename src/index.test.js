@@ -6,8 +6,9 @@ test('fixing float to 2 digits', () => {
 });
 
 test('fixing float to first significant decimal place', () => {
-  expect(sscs(0.0000999999999).toFirstNumberFixed().valueOf()).toBe('0.00009');
+  expect(sscs(0.0000999999999).toFirstNumberFixed().valueOf()).toBe('0.0001');
   expect(sscs(897.003443).toFirstNumberFixed().valueOf()).toBe('897.003');
+  expect(sscs(0.00921).toFirstNumberFixed().valueOf()).toBe('0.009');
 });
 
 test('rounding float to nearest integer', () => {

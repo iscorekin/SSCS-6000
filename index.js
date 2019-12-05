@@ -33,7 +33,9 @@ var sscs = {
       var firstNumIndex = [].concat(_toConsumableArray(str)).findIndex(function (x) {
         return parseInt(x) > 0;
       });
-      this.__value = (this.__value.toString().split('.')[0] || this.__value.toString().split(',')[0]) + '.' + fill(firstNumIndex) + [].concat(_toConsumableArray(str))[firstNumIndex];
+      var rounded = Math.round(parseFloat([[].concat(_toConsumableArray(str)).slice(firstNumIndex)[0], '.'].concat(_toConsumableArray([].concat(_toConsumableArray(str)).slice(firstNumIndex + 1))).join('')));
+
+      this.__value = (this.__value.toString().split('.')[0] || this.__value.toString().split(',')[0]) + '.' + fill(rounded > 9 ? firstNumIndex - 1 : firstNumIndex) + rounded.toString().replace('0', '');
     }
 
     return this;
