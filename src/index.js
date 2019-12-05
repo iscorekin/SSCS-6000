@@ -9,12 +9,6 @@ const sscs = {
 
   toFirstNumberFixed() {
     if (!this.__hasError) {    
-      const fill = (n) => {
-        let zeros = '';
-        for(let i = 0; i < n; i++) { zeros += '0' }
-        return zeros;
-      }
-
       const str = this.__value.toString().split('.')[1] || this.__value.toString().split(',')[1];
       
       if (!str) return this;
@@ -22,7 +16,17 @@ const sscs = {
       const firstNumIndex = [...str].findIndex(x => parseInt(x) > 0);
       const rounded = (Math.round(parseFloat([[...str].slice(firstNumIndex)[0], '.', ...[...str].slice(firstNumIndex + 1)].join(''))));
 
-      this.__value = `${this.__value.toString().split('.')[0] || this.__value.toString().split(',')[0]}.${fill(rounded > 9 ? firstNumIndex - 1 : firstNumIndex)}${rounded.toString().replace('0', '')}`;
+      this.__value = parseFloat(this.__value.toFixed(firstNumIndex + 1));
+    }
+
+    return this;
+  },
+
+  toAnyFloat() {
+    if (!this.__hasError) {
+      if (!this.__value.toString().split('.')[1] && !this.__value.toString().split(',')[1])
+        this.__value = `${this.__value}.0`
+
     }
 
     return this;

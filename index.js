@@ -18,14 +18,6 @@ var sscs = {
   },
   toFirstNumberFixed: function toFirstNumberFixed() {
     if (!this.__hasError) {
-      var fill = function fill(n) {
-        var zeros = '';
-        for (var i = 0; i < n; i++) {
-          zeros += '0';
-        }
-        return zeros;
-      };
-
       var str = this.__value.toString().split('.')[1] || this.__value.toString().split(',')[1];
 
       if (!str) return this;
@@ -35,7 +27,14 @@ var sscs = {
       });
       var rounded = Math.round(parseFloat([[].concat(_toConsumableArray(str)).slice(firstNumIndex)[0], '.'].concat(_toConsumableArray([].concat(_toConsumableArray(str)).slice(firstNumIndex + 1))).join('')));
 
-      this.__value = (this.__value.toString().split('.')[0] || this.__value.toString().split(',')[0]) + '.' + fill(rounded > 9 ? firstNumIndex - 1 : firstNumIndex) + rounded.toString().replace('0', '');
+      this.__value = parseFloat(this.__value.toFixed(firstNumIndex + 1));
+    }
+
+    return this;
+  },
+  toAnyFloat: function toAnyFloat() {
+    if (!this.__hasError) {
+      if (!this.__value.toString().split('.')[1] && !this.__value.toString().split(',')[1]) this.__value = this.__value + '.0';
     }
 
     return this;
