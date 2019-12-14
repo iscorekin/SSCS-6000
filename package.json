@@ -5,6 +5,7 @@
   "keywords": ["number", "format", "formatter", "number formatter", "sscs"],
   "main": "index.js",
   "scripts": {
+    "prebuild": "npm test",
     "build": "npx babel --presets env src -d ./ --ignore src/index.test.js",
     "dev": "npx babel --presets env src -d ./ --watch --ignore src/index.test.js",
     "test": "jest --watch"
