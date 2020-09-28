@@ -1,4 +1,4 @@
-import sscs from './';
+import sscs from '..';
 
 test('fixing float to 2 digits', () => {
   expect(sscs(2.232323232).toFixed(2).valueOf()).toBe(2.23);

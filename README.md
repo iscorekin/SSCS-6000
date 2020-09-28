@@ -43,7 +43,7 @@ Config object is a second parameter in main function.
 Key | Default | Description
 --- | ------- | -----------
 error | `'-'` | This returns if no value or value is `NaN`
-checkError | `!value || isNaN(value) || value === Number.MIN_VALUE` | Function to check is value correct. 
+checkError | ```!value || isNaN(value) || value > Number.MAX_SAFE_INTEGER || value < Number.MAX_SAFE_INTEGER;``` | Function to check is value correct. 
 
 # Examples 
 
