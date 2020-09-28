@@ -61,6 +61,7 @@ checkError | `!value || isNaN(value) || value === Number.MIN_VALUE` | Function t
     .toFirstNumberFixed()
     .replaceDots()
     .separate()
-    .valueOf());
+    .valueOf()
+  );
   // '123 900,004'
 ```
