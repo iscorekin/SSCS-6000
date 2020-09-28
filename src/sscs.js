@@ -1,5 +1,3 @@
-import { defaultConfig } from './config';
-
 const sscs = {
   toFixed(fix) {
     if (!this.__hasError) {
@@ -68,18 +66,4 @@ const sscs = {
   },
 };
 
-export default (value, config = {}) => {
-  const hasError = config.checkError ? config.checkError(value) : defaultConfig.checkError(value);
-  
-  const conf = {
-    ...defaultConfig,
-    ...config
-  }
-  
-  return {
-    __hasError: hasError,
-    __value: value,
-    __config: conf,
-    ...sscs,
-  };
-};
+export default sscs;
