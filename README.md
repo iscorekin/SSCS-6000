@@ -56,6 +56,11 @@ checkError | `!value || isNaN(value) || value === Number.MIN_VALUE` | Function t
   console.log(sscs(undefined, { error: '-' }).valueOf());
   // '-'
   
-  console.log(sscs(123900.00432, { error: '-' }).toFixed(4).toFirstNumberFixed().replaceDots().separate().valueOf());
+  console.log(sscs(123900.00432, { error: '-' })
+    .toFixed(4)
+    .toFirstNumberFixed()
+    .replaceDots()
+    .separate()
+    .valueOf());
   // '123 900,004'
 ```
